@@ -4,10 +4,10 @@ import {X} from "lucide-react";
 interface TodoItemProps {
   todo: Todo;
   onCompletedChange: (id: number, completed: boolean) => void;
-  onRemovedChange: (id: number) => void;
+  onDeleted: (id: number) => void;
 }
 
-export default function TodoItem({todo, onCompletedChange, onRemovedChange}: TodoItemProps) {
+export default function TodoItem({todo, onCompletedChange, onDeleted}: TodoItemProps) {
   return (
     <div>
       <label
@@ -24,7 +24,7 @@ export default function TodoItem({todo, onCompletedChange, onRemovedChange}: Tod
           </span>
         </div>
 
-        <button onClick={() => onRemovedChange(todo.id)}>
+        <button onClick={() => onDeleted(todo.id)}>
           <X className="hover:text-red-800"/>
         </button>
       </label>
