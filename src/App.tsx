@@ -2,6 +2,7 @@ import {dummyData} from "./data/todos.ts";
 import {useState} from "react";
 import AddTodoForm from "./components/todoForm/AddTodoForm.tsx";
 import TodoList from "./components/todoList/TodoList.tsx";
+import TodoSummary from "./components/todoSummary/TodoSummary.tsx";
 
 function App() {
   const [todos, setTodos] = useState(dummyData);
@@ -24,6 +25,10 @@ function App() {
       }]);
   }
   
+  function deleteAllCompletedTodos() {
+    setTodos((prevTodos) => prevTodos.filter((todo) => !todo.completed));
+  }
+  
   return (
     <main className="py-10 h-screen space-y-5 bg-slate-100 overflow-y-auto">
       <h1 className="font-bold text-3xl text-center">Your Todos</h1>
@@ -34,6 +39,7 @@ function App() {
           onDeleted={deleteTodo}/>
         <AddTodoForm onSubmit={addTodo}/>
       </div>
+      <TodoSummary todos={todos} deleteAllCompleted={deleteAllCompletedTodos}/>
     </main>
   )
 }
