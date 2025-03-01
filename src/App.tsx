@@ -1,33 +1,10 @@
-import {dummyData} from "./data/todos.ts";
-import {useState} from "react";
 import AddTodoForm from "./components/todoForm/AddTodoForm.tsx";
 import TodoList from "./components/todoList/TodoList.tsx";
 import TodoSummary from "./components/todoSummary/TodoSummary.tsx";
+import useTodos from "./hooks/useTodos.ts";
 
 function App() {
-  const [todos, setTodos] = useState(dummyData);
-  
-  function setTodoCompleted(id: number, completed: boolean) {
-    setTodos((prevTodos) => 
-      prevTodos.map(todo => (todo.id === id ? {...todo, completed } : todo)));
-  }
-  
-  function deleteTodo(id: number) {
-    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
-  }
-  
-  function addTodo(title: string) {
-    setTodos((prevTodos) => [...prevTodos, 
-      {
-        id: prevTodos.length + 1,
-        title,
-        completed: false,
-      }]);
-  }
-  
-  function deleteAllCompletedTodos() {
-    setTodos((prevTodos) => prevTodos.filter((todo) => !todo.completed));
-  }
+  const {todos, setTodoCompleted, deleteTodo, addTodo, deleteAllCompletedTodos} = useTodos()
   
   return (
     <main className="py-10 h-screen space-y-5 bg-slate-100 overflow-y-auto">
