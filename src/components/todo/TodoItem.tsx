@@ -1,13 +1,13 @@
 import {Todo} from "./todo.ts";
 import {X} from "lucide-react";
+import {useTodoContext} from "../../hooks/useTodoContext.ts";
 
 interface TodoItemProps {
   todo: Todo;
-  onCompletedChange: (id: number, completed: boolean) => void;
-  onDeleted: (id: number) => void;
 }
 
-export default function TodoItem({todo, onCompletedChange, onDeleted}: TodoItemProps) {
+export default function TodoItem({todo}: TodoItemProps) {
+  const {setTodoCompleted, deleteTodo} = useTodoContext()
   return (
     <div>
       <label
@@ -16,7 +16,7 @@ export default function TodoItem({todo, onCompletedChange, onDeleted}: TodoItemP
           <input
             type="checkbox"
             checked={todo.completed}
-            onChange={(e) => onCompletedChange(todo.id, e.target.checked)}
+            onChange={(e) => setTodoCompleted(todo.id, e.target.checked)}
             className="scale-125"
           />
           <span className={todo.completed ? "line-through text-gray-400" : ""}>
@@ -24,7 +24,7 @@ export default function TodoItem({todo, onCompletedChange, onDeleted}: TodoItemP
           </span>
         </div>
 
-        <button onClick={() => onDeleted(todo.id)}>
+        <button onClick={() => deleteTodo(todo.id)}>
           <X className="hover:text-red-800"/>
         </button>
       </label>

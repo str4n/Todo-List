@@ -1,11 +1,8 @@
-import {Todo} from "../todo/todo.ts";
+import {useTodoContext} from "../../hooks/useTodoContext.ts";
 
-interface TodoSummaryProps {
-  todos: Todo[]
-  deleteAllCompleted: () => void;
-}
 
-export default function TodoSummary({todos, deleteAllCompleted}: TodoSummaryProps) {
+export default function TodoSummary() {
+  const {todos, deleteAllCompletedTodos} = useTodoContext();
   const completedTodos = todos.filter((todo) => todo.completed);
 
   return (
@@ -17,7 +14,7 @@ export default function TodoSummary({todos, deleteAllCompleted}: TodoSummaryProp
           </p>
 
           <button
-            onClick={deleteAllCompleted}
+            onClick={deleteAllCompletedTodos}
             className={"text-red-500 hover:underline text-sm font-medium"}>
             Delete all completed
           </button>

@@ -1,13 +1,8 @@
 import TodoItem from "../todo/TodoItem.tsx";
-import {Todo} from "../todo/todo.ts";
+import {useTodoContext} from "../../hooks/useTodoContext.ts";
 
-interface TodoListProps {
-  todos: Todo[];
-  onCompletedChange: (id: number, completed: boolean) => void;
-  onDeleted: (id: number) => void;
-}
-
-export default function TodoList({todos, onCompletedChange, onDeleted}: TodoListProps) {
+export default function TodoList() {
+  const {todos} = useTodoContext()
   todos.sort((a, b) => {
     if (a.completed === b.completed) {
       return b.id - a.id;
@@ -22,8 +17,6 @@ export default function TodoList({todos, onCompletedChange, onDeleted}: TodoList
           <TodoItem
             key={todo.id}
             todo={todo}
-            onCompletedChange={onCompletedChange}
-            onDeleted={onDeleted}
           />
         ))}
       </div>
